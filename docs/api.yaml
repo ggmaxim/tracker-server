@@ -1,0 +1,174 @@
+openapi: 3.0.2
+info:
+  description: COVID Tracker App Documentation
+  title: COVID Tracker App
+  version: Release
+components:
+  examples:
+    UserExample:
+      value:
+        email: lulu@gmail.com
+        full_name: Lulu Jurgut
+        cnp: 6000lalala
+        phone: 077noidoi
+        role: admin
+        password: hashhhaha
+    UserLoginExample:
+      value:
+        email: lulu@gmail.com
+  schemas:
+    Error:
+      type: object
+      properties:
+        error_id:
+          type: string
+          description: The ID error. Use this for issue reporting.
+        status:
+          type: string
+          enum:
+            - error
+          description: The status of the response. Allways `error`
+        code:
+          type: number
+          description: The code of the error
+        message:
+          type: string
+          description: Human readable description of the error
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email of the user.
+        full_name:
+          type: string
+          description: The full name of the user.
+        cnp:
+          type: string
+          description: The CNP (Cod Numeric Personal) of the user.
+        phone:
+          type: string
+          description: The contact phone number for the user.
+        password:
+          type: string
+          description: Encoded password of the user.
+        role:
+          type: string
+          enum: 
+            - admin
+            - staff
+            - visitor
+          description: The role of the user.
+    UserLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email of the user.
+  responses:
+    InvalidParametersError:
+      description: Invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            InvalidParameters:
+              value:
+                error_id: e3ad78ca-6e54-4a89-a2a1-d48cab6b3286
+                status: error
+                message: Invalid parameters
+                code: 677016
+    ExternalApiError:
+      description: Error received from external web resource
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            External API error:
+              value:
+                error_id: 58274bca-facd-4024-b319-984adf74d10a
+                status: error
+                code: 677010
+                message: External API error
+    ServerError:
+      description: Server resource (database, cache etc) error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            Server error:
+              value:
+                error_id: e3ad78ca-6e54-4a89-a2a1-d48cab6b3286
+                status: error
+                message: Server error
+                code: 677009
+    InsufficientPermisionsError:
+      description: Invalid authorization headers
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            Insuficient permissions for the requested API path:
+              value:
+                error_id: f8667c46-efc1-43f4-a04c-58cf4e333fdb
+                status: error
+                message: Insufficient permissions to access the resource
+                code: 677008
+
+    Success:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: number
+                enum:
+                  - 0
+                example: 0
+paths:
+  "/v1/register":
+    post:
+      description: Registers a new user.
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            examples:
+              UserExample:
+                $ref: "#/components/examples/UserExample"
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "400":
+          $ref: "#/components/responses/InvalidParametersError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+  "/v1/login":
+    post:
+      description: Checks login for a user and returns the user data.
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserLogin"
+            examples:
+              UserLoginExample:
+                $ref: "#/components/examples/UserLoginExample"
+      responses:
+        "200":
+          $ref: "#/components/responses/Success"
+        "400":
+          $ref: "#/components/responses/InvalidParametersError"
+        "500":
+          $ref: "#/components/responses/ServerError"

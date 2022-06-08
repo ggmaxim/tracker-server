@@ -1,0 +1,76 @@
+{
+    "GET": {
+        "/v1/tests": {
+            "query": {
+                "type": "object",
+                "properties": {
+                    "cnp": {
+                        "$ref": "tests.json#/definitions/cnp"
+                    }
+                }
+            }
+        },
+        "/v1/users": {
+        }
+
+    },
+    "POST": {
+        "/v1/register": {
+            "body": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "$ref": "users.json#/definitions/email"
+                    },
+                    "password": {
+                        "$ref": "users.json#/definitions/password"
+                    },
+                    "cnp": {
+                        "$ref": "users.json#/definitions/cnp"
+                    },
+                    "role": {
+                        "$ref": "users.json#/definitions/role"
+                    },
+                    "full_name": {
+                        "$ref": "users.json#/definitions/full_name"
+                    }
+                },
+                "additionalProperties": false,
+                "required": ["email", "password", "cnp", "role", "full_name"]
+            }
+        },
+        "/v1/login": {
+            "body": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "$ref": "users.json#/definitions/email"
+                    },
+                    "password": {
+                        "$ref": "users.json#/definitions/password"
+                    }
+                },
+                "additionalProperties": false,
+                "required": ["email", "password"]
+            }
+        },
+        "/v1/tests": {
+            "body": {
+                "type": "object",
+                "properties": {
+                    "cnp": {
+                        "$ref": "users.json#/definitions/cnp"
+                    },
+                    "result": {
+                        "$ref": "tests.json#/definitions/result"
+                    },
+                    "type": {
+                        "$ref": "tests.json#/definitions/type"
+                    }
+                },
+                "additionalProperties": false,
+                "required": ["cnp", "result"]
+            }
+        }
+    }
+}

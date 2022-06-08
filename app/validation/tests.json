@@ -1,0 +1,13 @@
+{
+    "$id": "tests.json",
+    "definitions": {
+        "result": {
+            "type": "string",
+            "enum": ["pozitiv", "negativ"]
+        },
+        "type": {
+            "type": "string",
+            "enum": ["rapid", "pcr"]
+        }
+    }
+}
