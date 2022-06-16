@@ -4,7 +4,10 @@
 const uuid  = require("uuid"),
     Fastify = require("fastify"),
     cors    = require("fastify-cors"),
-    config  = require("./app/resources/config"),
+    {
+        config,
+        initEnvironment,
+    }       = require("./app/resources/environment"),
     port    = config.port || 6000;
 
 
@@ -28,6 +31,7 @@ fastify.register(cors, cors_options)
     .register(routes, {prefix: "/v1"});
 
 async function start(){
+    await initEnvironment();
     await fastify.listen(port, "0.0.0.0");
 }
 

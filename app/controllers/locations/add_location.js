@@ -1,8 +1,9 @@
 "use strict";
 
 const {
-    addTest,
-    } = require("../../helpers/covid_tests"),
+        addLocation,
+    } = require("../../helpers/locations"),
+    mongodb = require('mongodb'),
     {
         OperationError,
     } = require("../../helpers/error");
@@ -10,12 +11,11 @@ const { readUser } = require("../../helpers/users");
 
 async function handler (request, reply) {
     const {
-        cnp,
-        date, 
-        result,
-        type,
+        id,
+        latitude, 
+        longitude,
     } = request.body;
-    const user = await readUser({cnp});
+    const user = await readUser({_id: mongodb.ObjectID(id)});
 
     if(!user) {
         return {
@@ -24,7 +24,7 @@ async function handler (request, reply) {
         }
     }
 
-    await addTest(cnp, date, result, type);
+    await addLocation(id, latitude, longitude);
     return {
         isSuccess: 1,
         message: "Add test succes",

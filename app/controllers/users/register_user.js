@@ -10,7 +10,6 @@ const {
 
 async function handler (request, reply) {
     const {
-        username,
         email,
         password,
         role,
@@ -22,14 +21,6 @@ async function handler (request, reply) {
         return {
             isSuccess: 0,
             message: "An account with this CNP is already registered.",
-            email,
-        };
-    }
-    user = await readUser({username});
-    if (user) {
-        return {
-            isSuccess: 0,
-            message: "An account with this username is already registered.",
             email,
         };
     }
@@ -50,7 +41,7 @@ async function handler (request, reply) {
     //         email,
     //     };
     // }
-    await addUser(username, email, password, role, cnp, full_name);
+    await addUser(email, password, role, cnp, full_name);
     return {
         isSuccess: 1,
         message: "Register success",

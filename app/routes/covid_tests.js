@@ -8,7 +8,7 @@ async function testsRoutes (fastify, options) {
         getTests = require("../controllers/covid_tests/read_tests");
 
     fastify
-        .get("/", getRouteOptions(`${prefix}`, "GET"), getTests)
+        // .get("/", getRouteOptions(`${prefix}`, "GET"), getTests)
         .post("/", getRouteOptions(`${prefix}`, "POST"), addTest);
 }
 

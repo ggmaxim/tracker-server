@@ -13,6 +13,5 @@ module.exports = {
             authSource: "admin",
             w: "majority"
         }
-    },
-    sentences_per_user: parseInt(process.env.SENTENCES_PER_USER)
+    }
 }

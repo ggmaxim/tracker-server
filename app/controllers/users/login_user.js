@@ -17,7 +17,8 @@ async function handler (request, reply) {
         return {
             isSuccess: 1,
             message: "Login success",
-            email,
+            role: user.role,
+            id: user._id,
         }
     }
     return {

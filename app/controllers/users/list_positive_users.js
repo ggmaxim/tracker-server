@@ -1,16 +1,11 @@
 "use strict";
 
 const {
-        readUsers,
+        readPositiveUsers,
     } = require("../../helpers/users");
 
 async function handler (request, reply) {
-    const {role} = request.query;
-    let query = {};
-    if (role) {
-        query = {role};
-    }
-    const users = await readUsers(query);
+    const users = await readPositiveUsers();
     return {
         isSuccess: 1,
         users,

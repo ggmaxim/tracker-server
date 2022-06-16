@@ -11,8 +11,21 @@
             }
         },
         "/v1/users": {
+            "query": {
+                "type": "object",
+                "properties": {
+                    "role": {
+                        "$ref": "users.json#/definitions/role"
+                    }
+                }
+            }
+        },
+        "/v1/positive": {
+            "query": {}
+        },
+        "/v1/contact": {
+            "query": {}
         }
-
     },
     "POST": {
         "/v1/register": {
@@ -61,6 +74,9 @@
                     "cnp": {
                         "$ref": "users.json#/definitions/cnp"
                     },
+                    "date": {
+                        "type": "string"
+                    },
                     "result": {
                         "$ref": "tests.json#/definitions/result"
                     },
@@ -70,6 +86,24 @@
                 },
                 "additionalProperties": false,
                 "required": ["cnp", "result"]
+            }
+        },
+        "/v1/location": {
+            "body": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "$ref": "users.json#/definitions/id"
+                    },
+                    "latitude": {
+                        "type": "number"
+                    },
+                    "longitude": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": false,
+                "required": ["id", "latitude", "longitude"]
             }
         }
     }

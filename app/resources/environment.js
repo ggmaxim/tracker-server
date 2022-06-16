@@ -4,16 +4,12 @@ const {getMongoString}    = require("../helpers/mongodb"),
     {MongoClient}       = require("mongodb"),
     config              = require("./config");
 
-let cachedDb = null;
+const environment = {};
 
 async function getMongo () {
     const mongo_config = config.ed_mongo;
     const name = "ed_mongo"
     console.log("mongo init");
-    if (cachedDb && cachedDb.serverConfig.isConnected()) {
-        console.log('=> using cached database instance');
-        return cachedDb;
-    }
 
     const connection_string = getMongoString(mongo_config),
         options = {
@@ -24,8 +20,14 @@ async function getMongo () {
         db = mongo.db(mongo_config.db);
     console.log("connected to mongo");
     db.name = name;
-    cachedDb = db;
-    return cachedDb;
+    environment.mongo = db;
 }
 
-module.exports = {getMongo};
+async function initEnvironment () {
+    await getMongo();
+}
+
+environment.config = config;
+environment.initEnvironment = initEnvironment;
+
+module.exports = environment;
