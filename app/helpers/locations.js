@@ -6,11 +6,11 @@ const {mongo} = require("../resources/environment");
 Adds a location.
 */
 async function addLocation (id, latitude, longitude) {
-    const date = Date.now(),
+    const date = new Date(),
         location = {
             latitude,
             longitude,
-            date,
+            date: new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
             user_id: id,
         };
 

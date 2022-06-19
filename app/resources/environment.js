@@ -24,6 +24,7 @@ async function getMongo () {
 }
 
 async function initEnvironment () {
+    environment.contact_users = [];
     await getMongo();
 }
 

@@ -11,7 +11,6 @@ const {
 async function handler (request, reply) {
     const {
         email,
-        password,
         role,
         cnp,
         full_name,
@@ -33,15 +32,8 @@ async function handler (request, reply) {
         };
     }
 
-    // user = await readUser({phone});
-    // if (user) {
-    //     return {
-    //         isSuccess: 0,
-    //         message: "An account with this phone is already registered.",
-    //         email,
-    //     };
-    // }
-    await addUser(email, password, role, cnp, full_name);
+    console.log(role);
+    await addUser(email, role, cnp, full_name);
     return {
         isSuccess: 1,
         message: "Register success",

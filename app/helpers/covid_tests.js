@@ -5,9 +5,10 @@ const {mongo} = require("../resources/environment");
 /*
 Adds a COVID test.
 */
-async function addTest (cnp, date, result, type) {
+async function addTest (user_id, cnp, date, result, type) {
     const [month, day, year] = date.split("/"),
         test = {
+            user_id,
             cnp,
             result,
             tested: new Date(year, month - 1, day),

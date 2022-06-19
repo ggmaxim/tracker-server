@@ -1,8 +1,11 @@
 "use strict";
 
 const {
-    addTest,
+        addTest,
     } = require("../../helpers/covid_tests"),
+    {
+        readContactUsers,
+    } = require("../../helpers/users"),
     {
         OperationError,
     } = require("../../helpers/error");
@@ -24,7 +27,9 @@ async function handler (request, reply) {
         }
     }
 
-    await addTest(cnp, date, result, type);
+    await addTest(user._id, cnp, date, result, type);
+
+    const contact_users = await readContactUsers(user._id);
     return {
         isSuccess: 1,
         message: "Add test succes",

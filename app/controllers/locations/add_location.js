@@ -27,7 +27,7 @@ async function handler (request, reply) {
     await addLocation(id, latitude, longitude);
     return {
         isSuccess: 1,
-        message: "Add test succes",
+        message: "Add location succes",
     }
 }
 

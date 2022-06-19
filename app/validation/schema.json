@@ -16,6 +16,12 @@
                 "properties": {
                     "role": {
                         "$ref": "users.json#/definitions/role"
+                    },
+                    "positive": {
+                        "type": "boolean"
+                    },
+                    "contacts": {
+                        "type": "boolean"
                     }
                 }
             }
@@ -27,16 +33,58 @@
             "query": {}
         }
     },
-    "POST": {
-        "/v1/register": {
+    "DELETE": {
+        "/v1/users/:user_id": {
+            "params": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "PATCH": {
+        "/v1/users/:user_id": {
             "body": {
                 "type": "object",
                 "properties": {
                     "email": {
                         "$ref": "users.json#/definitions/email"
                     },
+                    "cnp": {
+                        "$ref": "users.json#/definitions/cnp"
+                    },
+                    "role": {
+                        "$ref": "users.json#/definitions/role"
+                    },
+                    "full_name": {
+                        "$ref": "users.json#/definitions/full_name"
+                    },
                     "password": {
                         "$ref": "users.json#/definitions/password"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "params": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "POST": {
+        "/v1/users": {
+            "body": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "$ref": "users.json#/definitions/email"
                     },
                     "cnp": {
                         "$ref": "users.json#/definitions/cnp"
@@ -49,7 +97,7 @@
                     }
                 },
                 "additionalProperties": false,
-                "required": ["email", "password", "cnp", "role", "full_name"]
+                "required": ["email", "cnp", "role", "full_name"]
             }
         },
         "/v1/login": {
