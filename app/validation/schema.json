@@ -1,15 +1,5 @@
 {
     "GET": {
-        "/v1/tests": {
-            "query": {
-                "type": "object",
-                "properties": {
-                    "cnp": {
-                        "$ref": "tests.json#/definitions/cnp"
-                    }
-                }
-            }
-        },
         "/v1/users": {
             "query": {
                 "type": "object",
@@ -25,12 +15,6 @@
                     }
                 }
             }
-        },
-        "/v1/positive": {
-            "query": {}
-        },
-        "/v1/contact": {
-            "query": {}
         }
     },
     "DELETE": {

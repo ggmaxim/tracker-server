@@ -26,7 +26,7 @@ async function handler (request, reply) {
     } else {
         users = await readUsers(query);
     }
-    console.log(users);
+
     return {
         isSuccess: 1,
         users,

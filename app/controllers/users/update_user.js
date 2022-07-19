@@ -11,16 +11,16 @@ const {
 
 async function handler (request, reply) {
     const {
-        user_id,
-    } = request.params,
-    {
-        email,
-        role,
-        cnp,
-        full_name,
-        password,
-    } = request.body;
-    console.log(user_id);
+            user_id,
+        } = request.params,
+        {
+            email,
+            role,
+            cnp,
+            full_name,
+            password,
+        } = request.body;
+
     let user = await readUser({_id: mongodb.ObjectID(user_id)});
     if (!user) {
         return {
@@ -28,7 +28,7 @@ async function handler (request, reply) {
             message: "User not found.",
         };
     }
-    
+
     await updateUser(user_id, email, role, cnp, full_name, password);
     return {
         isSuccess: 1,

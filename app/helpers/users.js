@@ -185,7 +185,6 @@ async function readContactUsers () {
             before_test.setDate(test_date.getDate() - 2);
             after_date.setDate(test_date.getDate() + 3);
 
-            // find all location in hospital in the past 3 days before test of this user and up to now
             const query = {
                 date: {$gt: before_test},
                 date: {$lt: after_date},
@@ -194,19 +193,14 @@ async function readContactUsers () {
 
             const locations_cursor = mongo.collection("locations").find(query),
                 locations = await locations_cursor.toArray();
-
-            console.log("1");
-            console.log(locations);
                 
             for (let j = 0 ; j < locations.length; j++) {
                 const loc = locations[j];
-                // interval 5 minute inainte, dupa
                 const interval_date_before = new Date(),
                     interval_date_after = new Date();
 
                 interval_date_before.setMinutes(loc.date.getMinutes() - 5);
                 interval_date_after.setMinutes(loc.date.getMinutes() + 5);
-                // for each location of user, find locations of other users in those dates that are less than 3m from each other
                 const l_query = {
                     date: {$gt: interval_date_before},
                     date: {$lt: interval_date_after},
@@ -215,12 +209,9 @@ async function readContactUsers () {
 
                 const l_cursor = mongo.collection("locations").find(l_query),
                     possible_contact_locations = await l_cursor.toArray();
-                console.log("aici2");
-                console.log(possible_contact_locations);
 
                 for (let k = 0; k < possible_contact_locations.length; k++) {
                     const possible_loc = possible_contact_locations[k];
-                    // distanta mai mica de 3m
                     if (getDistanceFromLatLonInM(loc.latitude, loc.longitude, possible_loc.latitude, possible_loc.longitude) < 3) {
                         contacts.push(possible_loc.user_id);
                     }

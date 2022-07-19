@@ -13,10 +13,9 @@ async function handler (request, reply) {
     const {
             user_id,
         } = request.params;
-        console.log("USER");
-    console.log(user_id);
+
     let user = await readUser({_id: mongodb.ObjectID(user_id)});
-    console.log(user);
+
     if (!user) {
         return {
             isSuccess: 0,

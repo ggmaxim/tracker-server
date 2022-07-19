@@ -12,7 +12,9 @@ async function handler (request, reply) {
         email,
         password,
     } = request.body;
+
     const user = await readUser({email, password});
+
     if (user) {
         return {
             isSuccess: 1,
@@ -25,7 +27,7 @@ async function handler (request, reply) {
         isSuccess: 0,
         message: "Wrong email or password",
         email,
-    }
+    };
 }
 
 module.exports = handler;
